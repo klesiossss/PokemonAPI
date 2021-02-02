@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 @Service
 public class PokemonClient {
 	
-public static final String GET_ALL_POKEMON_API = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20"; 
+public static final String GET_ALL_POKEMON_API = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=50"; 
 @Autowired
 private PokemonRepository pokemonRepository;
 static RestTemplate restTemplate = new RestTemplate();
@@ -46,11 +46,6 @@ public List<Pokemon> callGetAllPokemonAPI(){
     List<Pokemon> listPokemon = splitAPI(pok);
     	
     return listPokemon;
-}
-
-
-public void save(Pokemon pok){
-	pokemonRepository.save(pok);	
 }
 
 
@@ -80,9 +75,7 @@ public List<Pokemon> splitAPI(String pok) {
      	    
         listaPokemon.add(new Pokemon(id,name,url));       
     } 
-
- 
-    return listaPokemon;
+    	return listaPokemon;
  }
 
 }
