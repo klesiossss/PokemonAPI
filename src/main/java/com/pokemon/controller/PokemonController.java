@@ -28,7 +28,6 @@ import com.pokemon.model.Pokemon;
 import com.pokemon.repository.PokemonRepository;
 import com.pokemon.service.PokemonService;
 
-import br.ufma.vagas.domain.geral.Aluno;
 
 @RestController
 @RequestMapping("api/v1/pokemon")
@@ -39,7 +38,7 @@ public class PokemonController {
 	private PokemonService pokemonService;
 	
 	@GetMapping
-	public ResponseEntity<Page<Pokemon>> findAllPokemons(@PageableDefault(sort = "nome", size = 20) Pageable pageable) {
+	public ResponseEntity<Page<Pokemon>> findAllPokemons(@PageableDefault(sort = "id", size = 50) Pageable pageable) {
 		var alunos = pokemonService.findAll(pageable);
 		return ResponseEntity.ok(alunos);
 	}
@@ -50,15 +49,14 @@ public class PokemonController {
 		return ResponseEntity.ok(pokemon);
 	}
 	
-
 	
-	@GetMapping("/filter/name/{name}")
+	@GetMapping("name/{name}")
 	public ResponseEntity<Page<Pokemon>> findAllByExactName(@PathVariable String name, @PageableDefault(sort = "name", size = 20) Pageable pageable) {
 		var pokemon = pokemonService.findByExactName(name, pageable);
 		return ResponseEntity.ok(pokemon);
 	}
 	
-	@GetMapping("/name/{name}")
+	@GetMapping("filter/name/{name}")
 	public ResponseEntity<Page<Pokemon>> findAllBytName(@PathVariable String name, @PageableDefault(sort = "name", size = 20) Pageable pageable) {
 		var users = pokemonService.findByName(name, pageable);
 		return ResponseEntity.ok(users);

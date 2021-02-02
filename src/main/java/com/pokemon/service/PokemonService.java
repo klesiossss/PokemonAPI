@@ -47,7 +47,7 @@ public class PokemonService {
 	}
 	
 	public Page<Pokemon> findByName(String name, Pageable pageable){
-		return pokemonRepository.findByNameIgnoreCase(name, pageable);		
+		return pokemonRepository.findByNameContainingIgnoreCase(name, pageable);		
 	}
 	
 
