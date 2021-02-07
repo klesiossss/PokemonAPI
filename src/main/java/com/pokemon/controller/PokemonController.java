@@ -44,7 +44,7 @@ public class PokemonController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<List<Pokemon>> findEspeciesEvolutionPokemon(@PathVariable Integer id) {
+	public ResponseEntity<Pokemon> findById(@PathVariable String id) {
 		var pokemon = pokemonService.findById(id);
 		return ResponseEntity.ok(pokemon);
 	}

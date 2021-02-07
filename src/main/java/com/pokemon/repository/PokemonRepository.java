@@ -16,13 +16,13 @@ import com.pokemon.model.Pokemon;
 
 
 @Repository
-public interface PokemonRepository extends MongoRepository<Pokemon, Integer>{
+public interface PokemonRepository extends MongoRepository<Pokemon, String>{
 	
 
 	Page<Pokemon>findAll(Pageable pageable);
 	
-	@Query("{id : ?0}")
-	Optional<Pokemon> findsById(Integer id);
+	
+	Optional<Pokemon> findById(String id);
 
 	Page<Pokemon> findByNameContainingIgnoreCase(String name, Pageable pageable);
 	Page<Pokemon> findByNameIgnoreCase(String name, Pageable pageable);

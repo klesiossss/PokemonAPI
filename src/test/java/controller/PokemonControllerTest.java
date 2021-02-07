@@ -53,8 +53,6 @@ class PokemonControllerTest  {
 		mapper.registerModule(new JavaTimeModule());
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 				
-		
-		
 		pokemon = new Pokemon();
 		pokemon.setId(3);
 		pokemon.setName("Lorem Ipsum");
@@ -82,7 +80,7 @@ class PokemonControllerTest  {
 	void testNaoObterPorId() throws Exception {
 		when(pokemonService.findById(any(Integer.class))).thenThrow(ResourceNotFoundException.class);
 		
-		mockMvc.perform(get("api/v1/pokemon/3")
+		mockMvc.perform(get("api/v1/pokemon/2000")
 				.accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 	}

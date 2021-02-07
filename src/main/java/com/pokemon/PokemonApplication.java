@@ -7,10 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
-import com.pokemon.service.PokemonClient;
+
 import com.pokemon.repository.PokemonRepository;
 import com.pokemon.service.PokemonService;
+
+
+
 import com.pokemon.model.Pokemon;
 
 @SpringBootApplication
@@ -19,8 +26,6 @@ public class PokemonApplication implements CommandLineRunner {
 	private PokemonRepository pokemonRepository;
 	@Autowired
 	private PokemonService pokemonService;
-	@Autowired
-	private PokemonClient pokemonClient;
 	
 
 public static void main(final String args[]) {
@@ -32,20 +37,20 @@ public void run(String... strings) throws Exception {
 	pokemonRepository.deleteAll();
 
 	/**
-	 *Get pokemons from API!   
+	 *Get  pokemons from API!   
 	 */
-System.out.println("We've got Pokemons from the API!");
-List<Pokemon> listPokemon = pokemonClient.callGetAllPokemonAPI();
+System.out.println("\nWe've got Pokemons from the API!\n");
 
-for(Pokemon lp: listPokemon){
-	pokemonService.save(lp);
-	System.out.println(lp);
-}
+List<Pokemon> pokemons = pokemonService.savePokemonFromAPI();
+pokemonRepository.saveAll(pokemons);
+
+pokemons.forEach(System.out::println);
+
 /**
- *Find the past and future fases of a given pokemon id!  
+ *Find pokemon by id!  
  */
-System.out.println("\nFind the past and future specie evolution of a given id pokemon!\n");
-pokemonService.findById(2).forEach(System.out::println);
+//System.out.println("\nFind the past and future specie evolution of a given id pokemon!\n");
+//System.out.println(pokemonService.findById("Put the id in here!"));
 
 
 
