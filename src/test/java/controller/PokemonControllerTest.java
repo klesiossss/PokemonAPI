@@ -54,7 +54,6 @@ class PokemonControllerTest  {
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 				
 		pokemon = new Pokemon();
-		pokemon.setId(3);
 		pokemon.setName("Lorem Ipsum");
 		pokemon.setUrl("https://boudasdf.co/v3/sea/2");
 		
@@ -64,9 +63,7 @@ class PokemonControllerTest  {
 	@Test
 	@DisplayName("Deve retornar 200 ao buscar um Pokemon pelo id cadastrado")
 	void testObterPorId() throws Exception {
-		List<Pokemon> listPok = null;
-		listPok.add(pokemon);
-		when(pokemonService.findById(3)).thenReturn(listPok);
+		when(pokemonService.findById("PUT IN HERE POKEMON'S ID")).thenReturn(pokemon);
 		
 		mockMvc.perform(get("api/v1/pokemon/3")
 				.accept(MediaType.APPLICATION_JSON))
@@ -78,7 +75,7 @@ class PokemonControllerTest  {
 	@Test
 	@DisplayName("Deve retornar 404 ao buscar um Pokemon pelo id inexistente")
 	void testNaoObterPorId() throws Exception {
-		when(pokemonService.findById(any(Integer.class))).thenThrow(ResourceNotFoundException.class);
+		when(pokemonService.findById(any(String.class))).thenThrow(ResourceNotFoundException.class);
 		
 		mockMvc.perform(get("api/v1/pokemon/2000")
 				.accept(MediaType.APPLICATION_JSON))
@@ -91,7 +88,6 @@ class PokemonControllerTest  {
 		when(pokemonService.save(any(Pokemon.class))).thenReturn(pokemon);
 		
 		var novoPokemon = new Pokemon();
-		novoPokemon.setId(5);
 		novoPokemon.setName("yadyasoure");
 		novoPokemon.setUrl("https://sasea/v4.co/sesaa/5");
 		
@@ -109,7 +105,6 @@ class PokemonControllerTest  {
 	@DisplayName("Deve retornar 400 ao tentar salvar um Pokemon inválido")
 	void testNaoSalvar() throws Exception {
 		var novoPokemon = new Pokemon();
-		novoPokemon.setId(5);
 		novoPokemon.setName("yadyasoure");
 		novoPokemon.setUrl("https://sasea/v4.co/sesaa/5");
 		
@@ -135,7 +130,7 @@ class PokemonControllerTest  {
 	@Test
 	@DisplayName("Deve retornar 200 ao remover um Pokemon da base de dados")
 	void testRemover() throws Exception {
-		doNothing().when(pokemonService).delete(any(Integer.class));
+		doNothing().when(pokemonService).delete(any(String.class));
 		
         mockMvc.perform(delete("api/v1/pokemon")
         		.contentType(MediaType.APPLICATION_JSON)
