@@ -30,7 +30,7 @@ import com.pokemon.service.PokemonService;
 
 
 @RestController
-@RequestMapping("api/v1/pokemon")
+@RequestMapping("api/v2/pokemon/")
 public class PokemonController {
 	@Autowired
 	public  PokemonRepository pokemonRepository;
@@ -38,27 +38,27 @@ public class PokemonController {
 	private PokemonService pokemonService;
 	
 	@GetMapping
-	public ResponseEntity<Page<Pokemon>> findAllPokemons(@PageableDefault(sort = "id", size = 50) Pageable pageable) {
+	public ResponseEntity<Page<Pokemon>> findAllPokemons(@PageableDefault(sort = "id", size = 20) Pageable pageable) {
 		var alunos = pokemonService.findAll(pageable);
 		return ResponseEntity.ok(alunos);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Pokemon> findById(@PathVariable String id) {
+	public ResponseEntity<Pokemon> findById(@PathVariable int id) {
 		var pokemon = pokemonService.findById(id);
 		return ResponseEntity.ok(pokemon);
 	}
 	
 	
 	@GetMapping("name/{name}")
-	public ResponseEntity<Page<Pokemon>> findAllByExactName(@PathVariable String name, @PageableDefault(sort = "name", size = 20) Pageable pageable) {
-		var pokemon = pokemonService.findByExactName(name, pageable);
+	public ResponseEntity<Pokemon> findAllByExactName(@PathVariable String name) {
+		var pokemon = pokemonService.findByExactName(name);
 		return ResponseEntity.ok(pokemon);
 	}
 	
 	@GetMapping("filter/name/{name}")
-	public ResponseEntity<Page<Pokemon>> findAllBytName(@PathVariable String name, @PageableDefault(sort = "name", size = 20) Pageable pageable) {
-		var users = pokemonService.findByName(name, pageable);
+	public ResponseEntity<List<Pokemon>> findAllBytName(@PathVariable String name) {
+		var users = pokemonService.findByName(name);
 		return ResponseEntity.ok(users);
 	}
 	
@@ -72,7 +72,8 @@ public class PokemonController {
 	@PutMapping
 	public ResponseEntity<Pokemon> update(@RequestBody @Valid Pokemon pokemon) {
 		var pokemonSaved = pokemonRepository.save(pokemon);
-		return ResponseEntity.ok(pokemonSaved);
+		var location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(pokemonSaved.getId()).toUri();
+		return ResponseEntity.created(location).body(pokemonSaved);
 	}
 	
 	@DeleteMapping

@@ -54,6 +54,7 @@ class PokemonControllerTest  {
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 				
 		pokemon = new Pokemon();
+		
 		pokemon.setName("Lorem Ipsum");
 		pokemon.setUrl("https://boudasdf.co/v3/sea/2");
 		
@@ -63,7 +64,7 @@ class PokemonControllerTest  {
 	@Test
 	@DisplayName("Deve retornar 200 ao buscar um Pokemon pelo id cadastrado")
 	void testObterPorId() throws Exception {
-		when(pokemonService.findById("PUT IN HERE POKEMON'S ID")).thenReturn(pokemon);
+		when(pokemonService.findById(2)).thenReturn(pokemon);
 		
 		mockMvc.perform(get("api/v1/pokemon/3")
 				.accept(MediaType.APPLICATION_JSON))
@@ -75,7 +76,7 @@ class PokemonControllerTest  {
 	@Test
 	@DisplayName("Deve retornar 404 ao buscar um Pokemon pelo id inexistente")
 	void testNaoObterPorId() throws Exception {
-		when(pokemonService.findById(any(String.class))).thenThrow(ResourceNotFoundException.class);
+		when(pokemonService.findById(any(Integer.class))).thenThrow(ResourceNotFoundException.class);
 		
 		mockMvc.perform(get("api/v1/pokemon/2000")
 				.accept(MediaType.APPLICATION_JSON))
@@ -130,7 +131,7 @@ class PokemonControllerTest  {
 	@Test
 	@DisplayName("Deve retornar 200 ao remover um Pokemon da base de dados")
 	void testRemover() throws Exception {
-		doNothing().when(pokemonService).delete(any(String.class));
+		doNothing().when(pokemonService).delete(any(Integer.class));
 		
         mockMvc.perform(delete("api/v1/pokemon")
         		.contentType(MediaType.APPLICATION_JSON)

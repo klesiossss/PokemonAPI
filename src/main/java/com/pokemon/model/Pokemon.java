@@ -18,41 +18,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Document(collection = "pokemo")
 public class Pokemon {
 	@Id
-	String id;
+	String _id;
+	Integer id;
 	String name;
-	String url;
-	
-Pokemon(String name,String url){
-	this.name = name;
-	this.url = url;
-}
-
-Pokemon(String id, String name,String url){
-	this.name = name;
-	this.url = url;
-	this.id = id;
-}
-
-	
-	/**
-	 * 
+	String url;  
 	Integer base_experience;
 	Integer height;
 	boolean is_default;
 	Integer order;
 	Integer weight;
-	String urlDetails;
-	EvolvesFromSpecies evolves_from_species;
-	EvolvesTo evolves_to;
-	
-	*/
-
-	
 
 }

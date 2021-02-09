@@ -16,15 +16,15 @@ import com.pokemon.model.Pokemon;
 
 
 @Repository
-public interface PokemonRepository extends MongoRepository<Pokemon, String>{
+public interface PokemonRepository extends MongoRepository<Pokemon, Integer>{
 	
 
 	Page<Pokemon>findAll(Pageable pageable);
 	
 	
-	Optional<Pokemon> findById(String id);
+	Optional<Pokemon> findById(Integer id);
 
-	Page<Pokemon> findByNameContainingIgnoreCase(String name, Pageable pageable);
-	Page<Pokemon> findByNameIgnoreCase(String name, Pageable pageable);
+	List<Pokemon> findByNameContainingIgnoreCase(String name);
+	Optional<Pokemon> findByNameIgnoreCase(String name);
 	
 }
