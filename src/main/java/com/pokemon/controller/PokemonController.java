@@ -30,7 +30,7 @@ import com.pokemon.service.PokemonService;
 
 
 @RestController
-@RequestMapping("api/v2/pokemon/")
+@RequestMapping("/api/v2/pokemon/")
 public class PokemonController {
 	@Autowired
 	public  PokemonRepository pokemonRepository;
@@ -43,8 +43,8 @@ public class PokemonController {
 		return ResponseEntity.ok(alunos);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Pokemon> findById(@PathVariable int id) {
+	@GetMapping("{id}")
+	public ResponseEntity<Pokemon> findById(@PathVariable Integer id) {
 		var pokemon = pokemonService.findById(id);
 		return ResponseEntity.ok(pokemon);
 	}

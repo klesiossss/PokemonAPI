@@ -1,0 +1,249 @@
+{
+    "content": [
+        {
+            "_id": null,
+            "id": 1,
+            "name": "bulbasaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/1/",
+            "base_experience": 64,
+            "height": 7,
+            "order": 1,
+            "weight": 69,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 2,
+            "name": "ivysaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/2/",
+            "base_experience": 142,
+            "height": 10,
+            "order": 2,
+            "weight": 130,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 3,
+            "name": "venusaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/3/",
+            "base_experience": 236,
+            "height": 20,
+            "order": 3,
+            "weight": 1000,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 4,
+            "name": "charmander",
+            "url": "https://pokeapi.co/api/v2/pokemon/4/",
+            "base_experience": 62,
+            "height": 6,
+            "order": 5,
+            "weight": 85,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 5,
+            "name": "charmeleon",
+            "url": "https://pokeapi.co/api/v2/pokemon/5/",
+            "base_experience": 142,
+            "height": 11,
+            "order": 6,
+            "weight": 190,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 6,
+            "name": "charizard",
+            "url": "https://pokeapi.co/api/v2/pokemon/6/",
+            "base_experience": 240,
+            "height": 17,
+            "order": 7,
+            "weight": 905,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 7,
+            "name": "squirtle",
+            "url": "https://pokeapi.co/api/v2/pokemon/7/",
+            "base_experience": 63,
+            "height": 5,
+            "order": 10,
+            "weight": 90,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 8,
+            "name": "wartortle",
+            "url": "https://pokeapi.co/api/v2/pokemon/8/",
+            "base_experience": 142,
+            "height": 10,
+            "order": 11,
+            "weight": 225,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 9,
+            "name": "blastoise",
+            "url": "https://pokeapi.co/api/v2/pokemon/9/",
+            "base_experience": 239,
+            "height": 16,
+            "order": 12,
+            "weight": 855,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 10,
+            "name": "caterpie",
+            "url": "https://pokeapi.co/api/v2/pokemon/10/",
+            "base_experience": 39,
+            "height": 3,
+            "order": 14,
+            "weight": 29,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 11,
+            "name": "metapod",
+            "url": "https://pokeapi.co/api/v2/pokemon/11/",
+            "base_experience": 72,
+            "height": 7,
+            "order": 15,
+            "weight": 99,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 12,
+            "name": "butterfree",
+            "url": "https://pokeapi.co/api/v2/pokemon/12/",
+            "base_experience": 178,
+            "height": 11,
+            "order": 16,
+            "weight": 320,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 13,
+            "name": "weedle",
+            "url": "https://pokeapi.co/api/v2/pokemon/13/",
+            "base_experience": 39,
+            "height": 3,
+            "order": 17,
+            "weight": 32,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 14,
+            "name": "kakuna",
+            "url": "https://pokeapi.co/api/v2/pokemon/14/",
+            "base_experience": 72,
+            "height": 6,
+            "order": 18,
+            "weight": 100,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 15,
+            "name": "beedrill",
+            "url": "https://pokeapi.co/api/v2/pokemon/15/",
+            "base_experience": 178,
+            "height": 10,
+            "order": 19,
+            "weight": 295,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 16,
+            "name": "pidgey",
+            "url": "https://pokeapi.co/api/v2/pokemon/16/",
+            "base_experience": 50,
+            "height": 3,
+            "order": 21,
+            "weight": 18,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 17,
+            "name": "pidgeotto",
+            "url": "https://pokeapi.co/api/v2/pokemon/17/",
+            "base_experience": 122,
+            "height": 11,
+            "order": 22,
+            "weight": 300,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 18,
+            "name": "pidgeot",
+            "url": "https://pokeapi.co/api/v2/pokemon/18/",
+            "base_experience": 216,
+            "height": 15,
+            "order": 23,
+            "weight": 395,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 19,
+            "name": "rattata",
+            "url": "https://pokeapi.co/api/v2/pokemon/19/",
+            "base_experience": 51,
+            "height": 3,
+            "order": 25,
+            "weight": 35,
+            "_default": false
+        },
+        {
+            "_id": null,
+            "id": 20,
+            "name": "raticate",
+            "url": "https://pokeapi.co/api/v2/pokemon/20/",
+            "base_experience": 145,
+            "height": 7,
+            "order": 27,
+            "weight": 185,
+            "_default": false
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "sorted": true,
+            "unsorted": false,
+            "empty": false
+        },
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 20,
+        "unpaged": false,
+        "paged": true
+    },
+    "last": false,
+    "totalPages": 5,
+    "totalElements": 100,
+    "size": 20,
+    "number": 0,
+    "sort": {
+        "sorted": true,
+        "unsorted": false,
+        "empty": false
+    },
+    "first": true,
+    "numberOfElements": 20,
+    "empty": false
+}

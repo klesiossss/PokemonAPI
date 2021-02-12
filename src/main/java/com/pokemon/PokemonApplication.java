@@ -34,22 +34,22 @@ public static void main(final String args[]) {
 
 @Override
 public void run(String... strings) throws Exception {
-		pokemonRepository.deleteAll();
+		//pokemonRepository.deleteAll();
 
 		/**
 	 	*Get  Pokemons from API!   
  		*/
-		System.out.println("\nWe've got Pokemons from the API!\n");
-		Pageable pageable =  PageRequest.of(0, 20, Sort.by("id").ascending()); 
-		Page<Pokemon> page = pokemonService.savePokemonFromAPI(pageable);
-		System.out.println(page);
+		//System.out.println("\nWe've got Pokemons from the API!\n");
+		//Pageable pageable =  PageRequest.of(0, 20, Sort.by("id").ascending()); 
+		//Page<Pokemon> page = pokemonService.savePokemonFromAPI(pageable);
+		//System.out.println(page);
 
 
 		/**
 		 *Get the past and future by a given Pokemon id...   
 		 */
 		//pokemonService.detailsPokemonbyId(2).forEach(System.out::println);
-
+//pokemonService.findById(3);
 
 
 
