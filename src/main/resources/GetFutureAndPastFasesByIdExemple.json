@@ -1,0 +1,35 @@
+[
+    {
+        "_id": null,
+        "id": 2,
+        "name": "ivysaur",
+        "url": "https://pokeapi.co/api/v2/pokemon/2/",
+        "base_experience": 142,
+        "height": 10,
+        "order": 2,
+        "weight": 130,
+        "_default": false
+    },
+    {
+        "_id": null,
+        "id": 3,
+        "name": "venusaur",
+        "url": "https://pokeapi.co/api/v2/pokemon/3/",
+        "base_experience": 236,
+        "height": 20,
+        "order": 3,
+        "weight": 1000,
+        "_default": false
+    },
+    {
+        "_id": null,
+        "id": 1,
+        "name": "bulbasaur",
+        "url": "https://pokeapi.co/api/v2/pokemon/1/",
+        "base_experience": 64,
+        "height": 7,
+        "order": 1,
+        "weight": 69,
+        "_default": false
+    }
+]
