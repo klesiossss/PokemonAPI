@@ -1,5 +1,4 @@
 package com.pokemon.repository;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,12 +18,11 @@ import com.pokemon.model.Pokemon;
 public interface PokemonRepository extends MongoRepository<Pokemon, Integer>{
 	
 
-	Page<Pokemon>findAll(Pageable pageable);
+	Page<Pokemon>findAll(Pageable pageable);	
 	
-	
-	Optional<Pokemon> findById(Integer id);
-
-	List<Pokemon> findByNameContainingIgnoreCase(String name);
+	List<Pokemon> findByNameContainingIgnoreCase(String name); 
 	Optional<Pokemon> findByNameIgnoreCase(String name);
 	
+	@Query("{ $or: [ { weight: { $gt: ?0, $lt:?1 } }, { height: { $gt: ?2, $lt:?3 } } ] } ")
+	List<Pokemon> findPokemonByWeightAndHeight(double weight1,double weight2, double height1,double height2);
 }

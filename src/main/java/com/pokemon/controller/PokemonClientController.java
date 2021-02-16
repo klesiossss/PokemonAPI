@@ -43,4 +43,10 @@ public class PokemonClientController {
 		return ResponseEntity.ok(pokemonPage);
 	}
 	
+	@GetMapping("filter/{weight}/{height}")
+	public ResponseEntity<List<Pokemon>> findByWeightAndHeightFomAPI(@PathVariable Integer weight, @PathVariable Integer height ) {
+		 var pokemonList = pokemonService.findByWeightAndHeightFromAPI(weight,height);
+		return ResponseEntity.ok(pokemonList);
+	}	
+	
 }

@@ -35,10 +35,18 @@ public class PokemonService {
 		return	pokemonRepository.findAll(pageable);
 	}
 	
+	public List<Pokemon>findPokemonByWeightAndHeight(double weight, double height){
+		double weight1 =  ((1-0.1)*weight);
+		double weight2 =  ((1+0.1)*weight);
+		double height1 = ((1-0.1)*height);
+		double height2 = (1+0.1)*height;
+		return pokemonRepository.findPokemonByWeightAndHeight(weight1,weight2, height1,height2);
+	}
+	
 	
 	public Pokemon findById(Integer id){
 		
-		var pk = pokemonRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
+		var pk = pokemonRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException());
 		return pk;
 	}
 	
@@ -151,6 +159,37 @@ public class PokemonService {
 		}
 			
 	}
+	
+	public List<Pokemon> findByWeightAndHeightFromAPI(Integer weight, Integer height) {
+		try {
+			
+			var response =  restTemplate.getForObject("https://pokeapi.co/api/v2/pokemon?offset=0&limit=100", PokemonDTO.class);
+			List<Pokemon> pok = response.getResults();	
+	
+			List<Pokemon> pl = new ArrayList<Pokemon>();
+			for(int i=0; i< pok.size(); i++) {				
+				Pokemon p = restTemplate.getForObject(pok.get(i).getUrl(),Pokemon.class);
+				
+				if (p.getWeight() >= (1- 0.1)*weight && p.getWeight() <= (1+0.1)*weight ||
+					p.getHeight() >= (1- 0.1)*height && p.getHeight() <= (1+0.1)*height) {
+					p.setUrl(pok.get(i).getUrl());
+					pl.add(p);
+				if (!pokemonRepository.findByNameIgnoreCase(p.getName()).isPresent())
+					save(p);
+				System.out.println(p); 
+				}
+			}	
+			
+		return pl;
+		} catch (Exception ex) {	
+			
+			ex.printStackTrace();		
+			return new ArrayList();
+		}
+				
+	}
+	
+	
 	
 	
 

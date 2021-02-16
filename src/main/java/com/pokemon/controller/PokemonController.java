@@ -62,6 +62,12 @@ public class PokemonController {
 		return ResponseEntity.ok(users);
 	}
 	
+	@GetMapping("{weight}/{height}")
+	public ResponseEntity<List<Pokemon>> findPokemonByWeightAndHeight(@PathVariable Integer weight, @PathVariable Integer height ) {
+		 var pokemonList = pokemonService.findPokemonByWeightAndHeight(weight,height);
+		return ResponseEntity.ok(pokemonList);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Pokemon> save(@RequestBody @Valid Pokemon pokemon) {
 		var pokemonSaved = pokemonRepository.save(pokemon);
