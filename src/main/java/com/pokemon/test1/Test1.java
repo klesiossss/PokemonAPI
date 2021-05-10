@@ -25,5 +25,12 @@ public void tet4() {
 	
 }
 
+public void tet5() {
+	
+}
+
+public void tet6() {
+	
+}
 
 }
