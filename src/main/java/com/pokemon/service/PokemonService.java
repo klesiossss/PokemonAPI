@@ -1,12 +1,12 @@
 package com.pokemon.service;
 
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.source.MapConfigurationPropertySource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.pokemon.config.SSLValidation;
 import com.pokemon.exception.DuplicatedResourceException;
 import com.pokemon.exception.ResourceNotFoundException;
 import com.pokemon.model.Pokemon;
@@ -35,12 +36,12 @@ public class PokemonService {
 		return	pokemonRepository.findAll(pageable);
 	}
 	
-	public List<Pokemon>findPokemonByWeightAndHeight(double weight, double height){
-		double weight1 =  ((1-0.1)*weight);
-		double weight2 =  ((1+0.1)*weight);
-		double height1 = ((1-0.1)*height);
-		double height2 = (1+0.1)*height;
-		return pokemonRepository.findPokemonByWeightAndHeight(weight1,weight2, height1,height2);
+	public List<Pokemon>findPokemonByWeightAndHeight(double weight){
+		Integer weight1 =  (int)((1-0.1)*weight);
+		Integer weight2 =  (int)((1+0.1)*weight);
+		//double height1 = ((1-0.1)*height);
+		//double height2 = (1+0.1)*height;
+		return pokemonRepository.findByWeightBetween(weight1,weight2);
 	}
 	
 	
@@ -82,14 +83,19 @@ public class PokemonService {
 		
 	}
 	
-	public Page<Pokemon> savePokemonFromAPI(Pageable pageable) {
+	public List<Pokemon> savePokemonFromAPI() {
 		try {
+			SSLValidation sslVal = new SSLValidation();
 			
+			
+		            sslVal.turnOffSslChecking();
+		     
 			var response =  restTemplate.getForObject("https://pokeapi.co/api/v2/pokemon?offset=0&limit=100", PokemonDTO.class);
 			List<Pokemon> pok = response.getResults();	
 	
 			List<Pokemon> pl = new ArrayList<Pokemon>();
-			for(int i=0; i< pok.size(); i++) {				
+			for(int i=0; i< pok.size(); i++) {		
+				 sslVal.turnOffSslChecking();
 				Pokemon p = restTemplate.getForObject(pok.get(i).getUrl(),Pokemon.class);
 				p.setUrl(pok.get(i).getUrl());
 				pl.add(p);
@@ -99,10 +105,7 @@ public class PokemonService {
 			System.out.println(pl.get(i));
 			}	
 			
-			int start = (int) pageable.getOffset();
-			int end = (start + pageable.getPageSize()) > pl.size() ? pl.size() : (start + pageable.getPageSize());
-			Page<Pokemon> pages = new PageImpl<Pokemon>(pl.subList(start, end), pageable, pl.size());
-			return pages;
+			return pl;
 		} catch (Exception ex) {	
 			
 			ex.printStackTrace();				

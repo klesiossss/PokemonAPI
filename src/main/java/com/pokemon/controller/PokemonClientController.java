@@ -3,9 +3,6 @@ package com.pokemon.controller;
 
 
 import java.util.List;
-import java.util.Optional;
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 
 import com.pokemon.model.Pokemon;
 import com.pokemon.service.PokemonService;
@@ -38,8 +33,8 @@ public class PokemonClientController {
 	
 	
 	@GetMapping("download")
-	public ResponseEntity <Page<Pokemon>>downloadAllPokemons(@PageableDefault(sort = "id", size = 20) Pageable pageable) {
-		var pokemonPage = pokemonService.savePokemonFromAPI(pageable);
+	public ResponseEntity <List<Pokemon>>downloadAllPokemons() {
+		var pokemonPage = pokemonService.savePokemonFromAPI();
 		return ResponseEntity.ok(pokemonPage);
 	}
 	

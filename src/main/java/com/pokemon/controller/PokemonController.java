@@ -2,7 +2,6 @@ package com.pokemon.controller;
 
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 
 import com.pokemon.model.Pokemon;
 import com.pokemon.repository.PokemonRepository;
@@ -64,7 +61,7 @@ public class PokemonController {
 	
 	@GetMapping("{weight}/{height}")
 	public ResponseEntity<List<Pokemon>> findPokemonByWeightAndHeight(@PathVariable Integer weight, @PathVariable Integer height ) {
-		 var pokemonList = pokemonService.findPokemonByWeightAndHeight(weight,height);
+		 var pokemonList = pokemonService.findPokemonByWeightAndHeight(weight);
 		return ResponseEntity.ok(pokemonList);
 	}
 	
