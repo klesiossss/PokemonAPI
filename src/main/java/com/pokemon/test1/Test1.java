@@ -17,5 +17,12 @@ public void tet2() {
 
 }
 
+public void tet3() {
+	
+	
+
+
+}
+
 
 }
