@@ -19,9 +19,10 @@ public void tet2() {
 
 public void tet3() {
 	
+}
+
+public void tet4() {
 	
-
-
 }
 
 
