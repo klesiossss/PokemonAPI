@@ -33,4 +33,15 @@ public void tet6() {
 	
 }
 
+
+
+
+public void tet7() {
+	
+}
+
+public void tet8() {
+	
+}
+
 }
