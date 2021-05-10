@@ -43,11 +43,10 @@ public void tet7() {
 public void tet8() {
 	
 }
-<<<<<<< HEAD
 
 
-
-=======
->>>>>>> feature-b
 
 }
+
+
+
