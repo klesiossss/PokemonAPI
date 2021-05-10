@@ -40,6 +40,11 @@ public void tet7() {
 	
 }
 
+public void tet8() {
+	
+}
+
+
 
 
 }
