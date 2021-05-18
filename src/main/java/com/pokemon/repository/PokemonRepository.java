@@ -18,6 +18,8 @@ public interface PokemonRepository extends JpaRepository<Pokemon, Integer>{
 	
 	List<Pokemon> findByNameContainingIgnoreCase(String name); 
 	Optional<Pokemon> findByNameIgnoreCase(String name);
+	Optional<Pokemon> findByUrl(String url);
 	
 	List<Pokemon> findByWeightBetween(Integer weight1,Integer weight2);
+	List<Pokemon> findByHeightBetween(Integer height1,Integer height2);
 }

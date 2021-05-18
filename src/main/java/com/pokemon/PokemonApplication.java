@@ -1,6 +1,6 @@
 package com.pokemon;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,18 +25,19 @@ public static void main(final String args[]) {
 
 @Override
 public void run(String... strings) throws Exception {
-		pokemonRepository.deleteAll();
+	//pokemonRepository.deleteAll();
 
-		List<Pokemon> p2 = pokemonService.savePokemonFromAPI();
+	 //	pokemonService.savePokemonFromAPI().forEach(System.out::println);
 	
 		System.out.println("\nWe've got Pokemons by their height and weight from DataBase!\n");
-		List<Pokemon> p1 = pokemonService.findPokemonByWeightAndHeight(888);
-		p1.forEach(System.out::println);
+		//pokemonService.findByWeightAndHeightFromAPI(60,1000);
+		//pokemonService.detailsPokemonbyId(400);
+		//pokemonService.findAll().forEach(System.out::println);
+		//System.out.println(pokemonService.findByExactName("bulbasaur"));
+		//System.out.println(pokemonService.findById(202));
+		//pokemonService.findPokemonByHeight(20).forEach(System.out::println);
+		//pokemonService.findPokemonByWeight(100).forEach(System.out::println);
 		
-		 
-  
-
-
-
+		
 	}
 }

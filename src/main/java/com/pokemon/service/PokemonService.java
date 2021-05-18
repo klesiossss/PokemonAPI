@@ -1,20 +1,17 @@
 package com.pokemon.service;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.pokemon.config.SSLValidation;
 import com.pokemon.exception.DuplicatedResourceException;
 import com.pokemon.exception.ResourceNotFoundException;
 import com.pokemon.model.Pokemon;
@@ -35,20 +32,30 @@ public class PokemonService {
 	public Page<Pokemon> findAll(Pageable pageable){
 		return	pokemonRepository.findAll(pageable);
 	}
+
 	
-	public List<Pokemon>findPokemonByWeightAndHeight(double weight){
+	public List<Pokemon>findPokemonByWeight(double weight){
 		Integer weight1 =  (int)((1-0.1)*weight);
 		Integer weight2 =  (int)((1+0.1)*weight);
 		//double height1 = ((1-0.1)*height);
 		//double height2 = (1+0.1)*height;
 		return pokemonRepository.findByWeightBetween(weight1,weight2);
 	}
+
+	
+	public List<Pokemon>findPokemonByHeight(double height){
+		Integer height1 =  (int)((1-0.1)*height);
+		Integer height2 =  (int)((1+0.1)*height);
+	
+		return pokemonRepository.findByHeightBetween(height1,height2);
+	}
 	
 	
-	public Pokemon findById(Integer id){
+	
+	public Optional<Pokemon> findById(Integer id){
 		
 		var pk = pokemonRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException());
-		return pk;
+		return Optional.of(pk);
 	}
 	
 	public Pokemon findByExactName(String name){
@@ -62,20 +69,23 @@ public class PokemonService {
 	
 
 	public Pokemon save(Pokemon pokemon){	
-		try {
-			if(pokemonRepository.findByNameIgnoreCase(pokemon.getName()).isPresent()) throw new DuplicatedResourceException();
-			return pokemonRepository.save(pokemon);
-		}catch(Exception ex) {
-			ex.printStackTrace();
-			return new Pokemon();
-			
-		}
+		
+		var podeSalvar = pokemon.getId() == null && !pokemonRepository.findByUrl(pokemon.getUrl()).isPresent();
+			if(podeSalvar)
+				return pokemonRepository.save(pokemon);	
+			else
+				throw new DuplicatedResourceException();
 			
 	}
 	
 	public Pokemon update(Pokemon pokemon){
-		if(pokemonRepository.findById(pokemon.getId()).isEmpty()) throw new ResourceNotFoundException();
-		return pokemonRepository.save(pokemon);
+		var podeUpdate = pokemon.getId() != null && !pokemonRepository.findById(pokemon.getId()).isEmpty();
+		
+		if(podeUpdate)
+			return	 pokemonRepository.save(pokemon);
+		else
+			throw new ResourceNotFoundException();
+		
 	}
 	
 	public void delete(Integer id) {
@@ -85,24 +95,20 @@ public class PokemonService {
 	
 	public List<Pokemon> savePokemonFromAPI() {
 		try {
-			SSLValidation sslVal = new SSLValidation();
-			
-			
-		            sslVal.turnOffSslChecking();
-		     
+			   
 			var response =  restTemplate.getForObject("https://pokeapi.co/api/v2/pokemon?offset=0&limit=100", PokemonDTO.class);
 			List<Pokemon> pok = response.getResults();	
 	
 			List<Pokemon> pl = new ArrayList<Pokemon>();
 			for(int i=0; i< pok.size(); i++) {		
-				 sslVal.turnOffSslChecking();
+				
 				Pokemon p = restTemplate.getForObject(pok.get(i).getUrl(),Pokemon.class);
 				p.setUrl(pok.get(i).getUrl());
 				pl.add(p);
 				if (!pokemonRepository.findByNameIgnoreCase(pl.get(i).getName()).isPresent())
 					save(pl.get(i));
 				
-			System.out.println(pl.get(i));
+			System.out.println(pl.get(i)+"\n");
 			}	
 			
 			return pl;
@@ -114,8 +120,7 @@ public class PokemonService {
 	}
 	
 	public Pokemon findPokemonbyIdFromAPI(Integer id){
-		try {
-			
+		
 			String url1 = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=900";
 			String url2 = "https://pokeapi.co/api/v2/pokemon/"+id+"/";
 			var response = restTemplate.getForObject(url1, PokemonDTO.class);
@@ -126,18 +131,11 @@ public class PokemonService {
 			
 			var pk  = restTemplate.getForObject(pokemonList.get(0).getUrl(), Pokemon.class);
 			pk.setUrl(pokemonList.get(0).getUrl());
-			if (!pokemonRepository.findByNameIgnoreCase(pk.getName()).isPresent())
+			if (!pokemonRepository.findByNameIgnoreCase(pk.getName()).isPresent());
 				save(pk);
-				
-			
-			return pk;
+				return pk;
 					
-		} catch(Exception ex) {
-			//ex.printStackTrace();
-			return new Pokemon();
-			
-		}
-		
+
 	}
 	
 	
@@ -163,6 +161,7 @@ public class PokemonService {
 			
 	}
 	
+	
 	public List<Pokemon> findByWeightAndHeightFromAPI(Integer weight, Integer height) {
 		try {
 			
@@ -179,16 +178,15 @@ public class PokemonService {
 					pl.add(p);
 				if (!pokemonRepository.findByNameIgnoreCase(p.getName()).isPresent())
 					save(p);
-				System.out.println(p); 
+				//System.out.println(p); 
 				}
 			}	
 			
 		return pl;
 		} catch (Exception ex) {	
-			
 			ex.printStackTrace();		
-			return new ArrayList();
 		}
+		return null;
 				
 	}
 	

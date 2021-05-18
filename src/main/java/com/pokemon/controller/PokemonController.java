@@ -2,6 +2,7 @@ package com.pokemon.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -27,57 +28,77 @@ import com.pokemon.service.PokemonService;
 
 
 @RestController
-@RequestMapping("/api/v2/pokemon/")
+@RequestMapping("api/v2/pokemon")
 public class PokemonController {
 	@Autowired
 	public  PokemonRepository pokemonRepository;
 	@Autowired
 	private PokemonService pokemonService;
 	
-	@GetMapping
+
+	@GetMapping()
 	public ResponseEntity<Page<Pokemon>> findAllPokemons(@PageableDefault(sort = "id", size = 20) Pageable pageable) {
-		var alunos = pokemonService.findAll(pageable);
-		return ResponseEntity.ok(alunos);
+		var pokemons = pokemonService.findAll(pageable);
+		return ResponseEntity.ok(pokemons);
+	}
+
+
+	@GetMapping("/all")
+	public ResponseEntity<List<Pokemon>> findAllPokemons() {
+		var pokemons = pokemonService.findAll();
+		return ResponseEntity.ok(pokemons);
 	}
 	
-	@GetMapping("{id}")
-	public ResponseEntity<Pokemon> findById(@PathVariable Integer id) {
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Optional<Pokemon>> findById(@PathVariable Integer id) {
 		var pokemon = pokemonService.findById(id);
 		return ResponseEntity.ok(pokemon);
 	}
 	
 	
-	@GetMapping("name/{name}")
+	@GetMapping("/name/{name}")
 	public ResponseEntity<Pokemon> findAllByExactName(@PathVariable String name) {
 		var pokemon = pokemonService.findByExactName(name);
 		return ResponseEntity.ok(pokemon);
 	}
 	
-	@GetMapping("filter/name/{name}")
+
+	@GetMapping("/filter/name/{name}")
 	public ResponseEntity<List<Pokemon>> findAllBytName(@PathVariable String name) {
 		var users = pokemonService.findByName(name);
 		return ResponseEntity.ok(users);
 	}
 	
-	@GetMapping("{weight}/{height}")
-	public ResponseEntity<List<Pokemon>> findPokemonByWeightAndHeight(@PathVariable Integer weight, @PathVariable Integer height ) {
-		 var pokemonList = pokemonService.findPokemonByWeightAndHeight(weight);
+
+	@GetMapping("/weight/{weight}")
+	public ResponseEntity<List<Pokemon>> findPokemonByWeight(@PathVariable Integer weight) {
+		 var pokemonList = pokemonService.findPokemonByWeight(weight);
+		return ResponseEntity.ok(pokemonList);
+	}
+
+
+	@GetMapping("/height/{height}")
+	public ResponseEntity<List<Pokemon>> findPokemonByHeight(@PathVariable Integer height) {
+		 var pokemonList = pokemonService.findPokemonByHeight(height);
 		return ResponseEntity.ok(pokemonList);
 	}
 	
+
 	@PostMapping
 	public ResponseEntity<Pokemon> save(@RequestBody @Valid Pokemon pokemon) {
-		var pokemonSaved = pokemonRepository.save(pokemon);
+		var pokemonSaved = pokemonService.save(pokemon);
 		var location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(pokemonSaved.getId()).toUri();
 		return ResponseEntity.created(location).body(pokemonSaved);
 	}
 	
+
 	@PutMapping
-	public ResponseEntity<Pokemon> update(@RequestBody @Valid Pokemon pokemon) {
-		var pokemonSaved = pokemonRepository.save(pokemon);
-		var location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(pokemonSaved.getId()).toUri();
-		return ResponseEntity.created(location).body(pokemonSaved);
+	public ResponseEntity<Object> update(@RequestBody @Valid Pokemon pokemon) {
+		var pokemonSaved = pokemonService.update(pokemon);
+		return ResponseEntity.ok(pokemonSaved);
 	}
+	
 	
 	@DeleteMapping
 	public ResponseEntity<Pokemon> delete(@RequestBody @Valid Pokemon pokemon) {
