@@ -20,11 +20,10 @@ public class PokemonClientController {
 	@Autowired
 	private PokemonService pokemonService;
 
-	@GetMapping("/greeting")
-	public String hello(){
-		return "hello";
+	@GetMapping("/saudacao")
+	public String saudacao(){
+		return "Bem vindo!";
 	}
-
 
 	@GetMapping("{id}")
 	public ResponseEntity<List<Pokemon>> detailsPokemonbyId(@PathVariable Integer id) {
