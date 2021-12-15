@@ -19,7 +19,13 @@ public class PokemonClientController {
 
 	@Autowired
 	private PokemonService pokemonService;
-	
+
+	@GetMapping("/greeting")
+	public String hello(){
+		return "hello";
+	}
+
+
 	@GetMapping("{id}")
 	public ResponseEntity<List<Pokemon>> detailsPokemonbyId(@PathVariable Integer id) {
 		 var pokemonList = pokemonService.detailsPokemonbyId(id);
