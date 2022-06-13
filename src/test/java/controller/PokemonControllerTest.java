@@ -12,6 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -60,7 +62,7 @@ class PokemonControllerTest  {
 	@Test
 	@DisplayName("Deve retornar 200 ao buscar um Pokemon pelo id cadastrado")
 	void testObterPorId() throws Exception {
-		when(pokemonService.findById(2)).thenReturn(pokemon);
+		when(pokemonService.findById(2)).thenReturn(Optional.of(pokemon));
 		
 		mockMvc.perform(get("api/v1/pokemon/3")
 				.accept(MediaType.APPLICATION_JSON))
